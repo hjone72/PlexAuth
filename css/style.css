@@ -1,0 +1,48 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+.icon-block .material-icons {
+	font-size: inherit;
+}
+body {
+	display: flex;
+	min-height: 100vh;
+	flex-direction: column;
+	background-image: url(/images/backgrounds/bgnoise_lg.png);
+	background-repeat: repeat;
+}
+main {
+  flex: 1 0 auto;
+}
+.text-inset {
+  -webkit-background-clip: text;
+  -moz-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: rgba(255,255,255,0.5) 2px 4px 4px;
+  color: rgba(1,1,1,0.55);
+  font-weight: bold;
+}
+.holding-box {
+  padding: 50px!important;
+  border-radius: 10px;
+}
+.input-field input:focus, .input-field label:focus {
+  border-color: #03a9f4!important;
+}
+.input-field .active {
+  color: #03a9f4!important;
+}
+#client-picture {
+  height: 50px;
+  top: 7px;
+  position: relative;
+}
