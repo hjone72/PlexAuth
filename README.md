@@ -24,7 +24,7 @@ http://mamchenkov.net/wordpress/2015/08/19/custom-single-sign-on-with-nginx-and-
 
 
 Screenshots:
-![alt tag](https://raw.githubusercontent.com/hjone72/PlexAuth/master/screenshots/sign-in.jpg)
-![alt tag](https://raw.githubusercontent.com/hjone72/PlexAuth/master/screenshots/signed-in.jpg)
+![alt tag](https://raw.githubusercontent.com/hjone72/PlexAuth/master/screenshots/sign-in.JPG)
+![alt tag](https://raw.githubusercontent.com/hjone72/PlexAuth/master/screenshots/signed-in.JPG)
 
 Thanks.
