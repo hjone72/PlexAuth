@@ -1,4 +1,5 @@
 <?php
+	
 	if (isset($_POST['PlexEmail'])){
 		$host = "https://plex.tv/users/sign_in.json";
 		$username = $_POST['PlexEmail'];
@@ -50,6 +51,7 @@
 		if ($auth){
 			header('X-Username: ' . 'test', true, 200);
 			$ini_array = parse_ini_file($_SERVER['DOCUMENT_ROOT'] . "/config.ini.php");
+			$_SESSION['auth'] = true;
 			setcookie($ini_array['cookie'], $user_token, time() + 129600, '/', $ini_array['domain'], true);
 			header("Refresh:0");
 		} else {
