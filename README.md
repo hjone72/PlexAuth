@@ -12,10 +12,18 @@ Hope this helps someone else out there.
 
 I plan to put up a bit of a guide on how to use it but I think its fairly straight forward.
 
+For nginx config check out the example.
+
+This requires you to have:
+	1. RememberMe by gbirke installed.
+	2. PlexPy https://github.com/drzoidberg33/plexpy
+	3. nginx
+
 There are a few quick things that need to be done to get this working.
-	1. Rename sample_config.ini.php to config.ini.php and edit as needed.
-	2. Rename footer_sample.php to footer.php and edit as desired.
-	3. Rename nav_sample.php to nav.php and edit as desired.
+	1. Head to: https://github.com/gbirke/rememberme follow the instructions to install RememberMe
+	2. Rename sample_config.ini.php to config.ini.php and edit as needed.
+	3. Rename footer_sample.php to footer.php and edit as desired.
+	4. Rename nav_sample.php to nav.php and edit as desired.
 	
 links that may be helpful:
 https://www.nginx.com/resources/wiki/start/topics/examples/imapauthenticatewithapachephpscript/
