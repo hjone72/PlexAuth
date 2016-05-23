@@ -15,16 +15,25 @@ I plan to put up a bit of a guide on how to use it but I think its fairly straig
 For nginx config check out the example.
 
 This requires you to have:
+
 	1. RememberMe by gbirke installed.
-	2. PlexPy https://github.com/drzoidberg33/plexpy
-	3. nginx
+	
+	2. PlexPy https://github.com/drzoidberg33/plexpy (If enabled in config).
+	
+	3. nginx.
 
 There are a few quick things that need to be done to get this working.
+
 	1. Head to: https://github.com/gbirke/rememberme follow the instructions to install RememberMe
+	
 	2. Rename sample_config.ini.php to config.ini.php and edit as needed.
+	
 	3. Rename footer_sample.php to footer.php and edit as desired.
+	
 	4. Rename nav_sample.php to nav.php and edit as desired.
 	
+PlexPy is only needed if you wish to restrict what some users can access. It works based off a Plex filter, so if the URI is added to the filter then the user can access that URI.
+
 links that may be helpful:
 https://www.nginx.com/resources/wiki/start/topics/examples/imapauthenticatewithapachephpscript/
 https://developers.shopware.com/blog/2015/03/02/sso-with-nginx-authrequest-module/
