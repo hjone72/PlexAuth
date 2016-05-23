@@ -7,7 +7,7 @@
 	plexowner = "PLEX OWNERS USERNAME";
 	
 	[PLEXPY]
-	enabled = false;
+	plexpyEnabled = false;
 	plexpytoken = "PLEXPY_API_TOKEN";
 	
 	[SERVER]
