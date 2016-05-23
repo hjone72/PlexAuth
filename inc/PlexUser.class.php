@@ -31,7 +31,9 @@
 			$this->pin = (string)$user_info->attributes()['pin'];
 			$this->email = (string)$user_info->attributes()['email'];
 			$this->thumb = (string)$user_info->attributes()['thumb'];
-			$this->loadGroups();
+			if ($GLOBALS['ini_array']['plexpyEnabled']){
+				$this->loadGroups();
+			}
 		}
 		
 		private function loadGroups(){
