@@ -26,7 +26,7 @@
 			$user_info = simplexml_load_file($host . "$token");
 
 			//While we're grabbing the users details. We should also load in some other useful info to save trips to plex in the coming requests.
-			$this->username = strtolower($user_info->attributes()['username']);
+			$this->username = (string)$user_info->attributes()['username'];
 			$this->plexID = (string)$user_info->attributes()['id'];
 			$this->pin = (string)$user_info->attributes()['pin'];
 			$this->email = (string)$user_info->attributes()['email'];
