@@ -33,6 +33,17 @@
 		
 		// First, we initialize the session, to see if we are already logged in
 		session_start();
+		
+		//Before we continue check if this is an internal request and has a specific session_id
+		if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1'){ //If the request isn't coming from the server then ignore the attempt to change Session_id.
+			if (isset($_GET['session'])){
+				$session_path = $GLOBALS['ini_array']['session_path'];
+				$session_id = $_GET['session'];
+				$session_info = file_get_contents($session_path . $session_id);
+				session_decode($session_info);
+			}
+		}
+		
 		$debug = true; //Debug.
 		if ($debug) {
 			$logPath = $path."/inc/tokens/auth.log";
@@ -65,6 +76,21 @@
 				if($User->getAuth()){
 					// User is still logged in - show content
 					returnAuth(true, $User);
+					//Handle auth for additional sites.
+					if (isset($_GET['info'])){
+						if ($_GET['info'] == 'plexpy'){
+							//Print data a way that plexpy is expecting.
+							//uid, token, group
+							print $User->getID() . PHP_EOL;
+							print $User->getToken() . PHP_EOL;
+							if ($User->authURI('/' . $_GET['info'])){
+								print 'admin' . PHP_EOL;
+							} else {
+								print 'guest' . PHP_EOL;
+							}
+							print $User->getUsername() . PHP_EOL;
+						}
+					}
 				}else{
 					//User has been loaded but not authed. This is odd.
 					//print_r ($_SESSION);
@@ -108,7 +134,11 @@
 			}
 			if ($value) {
 				header('X-Username: ' . $Username, true, 200);
-				print 'Authenticated';
+				if (isset($_GET['debug'])){
+					if ($_GET['debug']){
+						print 'Authenticated';
+					}
+				}
 			} else {
 				if ($admin) {
 					header('X-Username: ' . $Username, true, 403);
