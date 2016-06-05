@@ -1,31 +1,9 @@
 <?php
 	function Login($username, $password) {
 		//Authenticates a user
-		//URL to get users details from.
-		$host = "https://plex.tv/users/sign_in.json";
-		//Header that will be passed to Plex. Details from this will appear in the users Plex.tv 'devices' section.
-		$header = array(
-						   'Content-Type: application/xml; charset=utf-8',
-						   'Content-Length: 0',
-						   'X-Plex-Client-Identifier: 8334-8A72-4C28-FDAF-29AB-479E-4069-C3A3',
-						   'X-Plex-Product: YTB-SSO',
-						   'X-Plex-Version: v2.0',
-						   );
-		$process = curl_init($host);
-		curl_setopt($process, CURLOPT_HTTPHEADER, $header);
-		curl_setopt($process, CURLOPT_HEADER, 0);
-		curl_setopt($process, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-		curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
-		curl_setopt($process, CURLOPT_TIMEOUT, 30);
-		curl_setopt($process, CURLOPT_SSL_VERIFYPEER, 0);
-		curl_setopt($process, CURLOPT_POST, 1);
-		curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
-		$data = curl_exec($process);
-		$curlError = curl_error($process);
-		$json = json_decode($data, true);
-		if (!array_key_exists("error",$json)){
-			require_once('PlexUser.class.php'); //Ensure that the PlexUser class has been loaded.
-			$User = new PlexUser($json['user']['authentication_token']);
+		require_once('PlexUser.class.php'); //Ensure that the PlexUser class has been loaded.
+		$User = new PlexUser(null, $username, $password);
+		if ($User->getAuth()){
 			return $User->getAuth();
 		} else {
 			echo '<script language="javascript">';

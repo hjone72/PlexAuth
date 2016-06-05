@@ -11,11 +11,50 @@
 		private $auth = false; //If the user has been authenticated or not.
 		private $groups; //Array of uri's that the user can access.
 		
-		public function __construct($token){
+		public function __construct($token, $username = null, $password = null){
+			if ($username != null && $password != null) {
+				if ($this->getPlexToken($username, $password)){
+					//Authenticated
+					$token = $this->token;
+				}
+			}
 			$this->Load($token);
 			$this->token = $token;
 			$this->AuthUser($this->username);
 			$_SESSION['ytbuser'] = serialize($this);
+		}
+		
+		private function getPlexToken($username, $password){
+			//Gets plex token using UN and PW.
+			//Authenticates a user
+			//URL to get users details from.
+			$host = "https://plex.tv/users/sign_in.json";
+			//Header that will be passed to Plex. Details from this will appear in the users Plex.tv 'devices' section.
+			$header = array(
+							   'Content-Type: application/xml; charset=utf-8',
+							   'Content-Length: 0',
+							   'X-Plex-Client-Identifier: 8334-8A72-4C28-FDAF-29AB-479E-4069-C3A3',
+							   'X-Plex-Product: YTB-SSO',
+							   'X-Plex-Version: v2.0',
+							   );
+			$process = curl_init($host);
+			curl_setopt($process, CURLOPT_HTTPHEADER, $header);
+			curl_setopt($process, CURLOPT_HEADER, 0);
+			curl_setopt($process, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
+			curl_setopt($process, CURLOPT_USERPWD, $username . ":" . $password);
+			curl_setopt($process, CURLOPT_TIMEOUT, 30);
+			curl_setopt($process, CURLOPT_SSL_VERIFYPEER, 0);
+			curl_setopt($process, CURLOPT_POST, 1);
+			curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
+			$data = curl_exec($process);
+			$curlError = curl_error($process);
+			$json = json_decode($data, true);
+			if (!array_key_exists("error",$json)){
+				$this->token = $json['user']['authentication_token'];
+				return true;
+			} else {
+				return false;
+			}
 		}
 		
 		private function Load($token) {
