@@ -91,6 +91,7 @@
 						$permissions = explode(',',$string); //Explode the string into an array.
 						$this->groups = $permissions; //Set permissions.
 						break;
+					$json = file_get_contents($GLOBALS['ini_array']['plexpyserver'] . "/api/v2?apikey=".$pytoken."&cmd=get_users"); //Load JSON from PlexPy
 					}
 				}
 			}
