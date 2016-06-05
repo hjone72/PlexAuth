@@ -37,12 +37,13 @@
 	session_start();
 
 	if(!empty($_SESSION['ytbuser'])) {
+		$User = unserialize($_SESSION['ytbuser']);
 		if(!empty($_GET['logout'])) {
-			$rememberMe->clearCookie($_SESSION['username']);
+			$rememberMe->clearCookie($User->getToken());
 			redirect(true);
 		}
 		if(!empty($_GET['completelogout'])) {
-			$storage->cleanAllTriplets($_SESSION['username']);
+			$storage->cleanAllTriplets($User->getToken());
 			redirect(true);
 		}	
 		// Check, if the Rememberme cookie exists and is still valid.
@@ -50,7 +51,6 @@
 		if(!empty($_COOKIE[$rememberMe->getCookieName()]) && !$rememberMe->cookieIsValid()) {
 			redirect(true);
 		}
-		$User = unserialize($_SESSION['ytbuser']);
 		if($User->getAuth()){
 			// User is still logged in - show content
 			header('X-Username: ' . $User->getUsername(), true, 200);
