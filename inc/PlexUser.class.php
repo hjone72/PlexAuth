@@ -82,6 +82,17 @@
 					$userid = $this->PlexID; //Get the users plexID
 					$pytoken = $GLOBALS['ini_array']['plexpytoken']; //Load PlexPy token from config file.
 					$json = file_get_contents($GLOBALS['ini_array']['plexpyserver'] . "/api/v2?apikey=".$pytoken."&cmd=get_users"); //Load JSON from PlexPy
+					$groups = json_decode($json); //Decode json.
+					$groups = $groups->response->data; //specify specific section of JSON that we need.
+					foreach ($groups as $user) {
+						//Loop through each user until we find this user.
+						if ($user->user_id == $this->plexID) {
+							$string = urldecode($user->filter_photos); //We are going to use the photo's filer. This could also be done with any Plex restriction option. URLdecode this too.
+							$string = substr($string, 6); //Remove the label= from beginning of string.
+							$permissions = explode(',',$string); //Explode the string into an array.
+							$this->groups = $permissions; //Set permissions.
+							break;
+						}
 					}
 				}
 			}
