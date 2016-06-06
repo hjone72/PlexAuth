@@ -18,7 +18,7 @@ This requires you to have:
 
 	1. RememberMe by gbirke installed.
 	
-	2. PlexPy https://github.com/drzoidberg33/plexpy (If enabled in config).
+	2. PlexPy https://github.com/drzoidberg33/plexpy (If enabled in config). (Custom fork of plexpy that intergrates with plexpy login. https://github.com/hjone72/plexpy)
 	
 	3. nginx.
 
