@@ -17,9 +17,10 @@ For nginx config check out the example.
 This requires you to have:
 
 	1. RememberMe by gbirke installed.
-	2. PlexPy https://github.com/drzoidberg33/plexpy
+	2. PlexPy https://github.com/drzoidberg33/plexpy (If enabled in config). (Custom fork of plexpy that intergrates with plexpy login. https://github.com/hjone72/plexpy)
 	3. nginx
 
+PlexPy is only needed if you wish to restrict what some users can access. It works based off a Plex filter, so if the URI is added to the filter then the user can access that URI.
 
 There are a few quick things that need to be done to get this working:
 
