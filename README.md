@@ -6,18 +6,15 @@ I wanted to be able to have all the people I share my plex with to be able to ac
 
 Using Nginx's Auth_Request module I've now been able to secure all the services using users Plex credentials.
 
-It's not finished and a lot of the code is slapped together. I have the intention to go back and clean a lot of it up when time permits.
+It's not finished and a lot of the code is slapped together. I have the intention to go back and clean a lot of it up when time permits. Hope this helps someone else out there.
 
-Hope this helps someone else out there.
-
-I plan to put up a bit of a guide on how to use it but I think its fairly straight forward.
-
-For nginx config check out the example.
+I plan to put up a bit of a guide on how to use it but I think its fairly straight forward. I've only tested with Ubuntu 14.04+
 
 This requires you to have:
 
-	1. RememberMe by gbirke installed.
-	2. nginx
+	1. Nginx. For nginx config check out the example.
+	2. PHP
+	3. PHP-Curl
 
 You can restrict what some users can access. It works based off a Plex filter, so if the URI is added to the filter then the user can access that URI. Just use auth_request to make a second request to the URI that you wish to secure with a GET request "admin=true". To allow the user add the URI to their photos filter. Sorry, if you use photos on plex this won't work.
 
