@@ -4,18 +4,18 @@
 	;/*
 	
 	[PLEX_SERVER]
-	token = "YOUR PLEX TOKEN";
-	plexowner = "PLEX OWNERS USERNAME";
+	token = "YOUR PLEX TOKEN"; //Follow this guide to get your token. https://support.plex.tv/hc/en-us/articles/204059436-Finding-your-account-token-X-Plex-Token
+	plexowner = "PLEX OWNERS USERNAME"; //Your Plex username. Not your email.
 	
 	[PLEXPY]
 	plexpy = true; //Enable or disable PlexPy features. This is only if you are using my custom PlexPy fork.
 	
 	[SERVER]
-	domain = "Your domain. This is for the cookie";
+	domain = "Your domain."; //This is used for the cookie.
 	session_path = "/var/lib/php5/sessions/sess_"; //This is your PHP session path folder with session prefix.
 	
 	[REMEMBER_ME]
-	remember_cookie = "What you'd like the cookie to be called."; //Name of the cookie that will be used to remember user.
+	remember_cookie = "YTB-SID"; //Name of the cookie that will be used to remember user.
 	expire_time = "604800"; //Time for the cookie to expire (Seconds). 604800 = 1 week.
 	
 	;*/
