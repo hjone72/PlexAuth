@@ -70,32 +70,6 @@
 			$this->pin = (string)$user_info->attributes()['pin'];
 			$this->email = (string)$user_info->attributes()['email'];
 			$this->thumb = (string)$user_info->attributes()['thumb'];
-			$this->loadGroups();
-		}
-		
-		private function loadGroups(){
-			if ($GLOBALS['ini_array']['plexpy']){
-				if ($this->username == $GLOBALS['ini_array']['plexowner']){
-					//This is an override for the Plex server owner.
-					$this->groups = array("admin");
-				} else {
-					$userid = $this->PlexID; //Get the users plexID
-					$pytoken = $GLOBALS['ini_array']['plexpytoken']; //Load PlexPy token from config file.
-					$json = file_get_contents($GLOBALS['ini_array']['plexpyserver'] . "/api/v2?apikey=".$pytoken."&cmd=get_users"); //Load JSON from PlexPy
-					$groups = json_decode($json); //Decode json.
-					$groups = $groups->response->data; //specify specific section of JSON that we need.
-					foreach ($groups as $user) {
-						//Loop through each user until we find this user.
-						if ($user->user_id == $this->plexID) {
-							$string = urldecode($user->filter_photos); //We are going to use the photo's filer. This could also be done with any Plex restriction option. URLdecode this too.
-							$string = substr($string, 6); //Remove the label= from beginning of string.
-							$permissions = explode(',',$string); //Explode the string into an array.
-							$this->groups = $permissions; //Set permissions.
-							break;
-						}
-					}
-				}
-			}
 		}
 		
 		public function printGroups(){
@@ -163,19 +137,28 @@
 		
 		private function AuthUser($username) {
 			//Load plex friends into an array.
-			$sxml = simplexml_load_file("https://plex.tv/pms/friends/all?X-Plex-Token=" . $GLOBALS['ini_array']['token']);
+			$sxml = simplexml_load_file("https://plex.tv/api/users?X-Plex-Token=" . $GLOBALS['ini_array']['token']);
 			$auth = false; //Auth is false unless changed.
 			foreach (($sxml->User) as $user){
 				//Loop through all uers and convert them to lowercase and add them to array.
 				//if (strcmp($username, strtolower($user['username']))){
 				if (strcmp(strtolower($username), strtolower($user['username'])) == 0) {
 					$auth = true; //set auth to true.
+					
+					//Right here we are going to get an opportunity to grab the allowed URI's.
+					$string = urldecode($user['filterPhotos']); //We are going to use the photo's filer. This could also be done with any Plex restriction option. URLdecode this too.
+					$string = substr($string, 6); //Remove the label= from beginning of string.
+					$permissions = explode(',',$string); //Explode the string into an array.
+					$this->groups = $permissions; //Set permissions.
+					
 					break; //break the loop.
 				}
 				
 				if ($username == $GLOBALS['ini_array']['plexowner']){
 					//This is an override for the Plex server owner. Because the Plex server isn't technically shared with the owner.
 					$auth = true;
+					//Add the admin group to this user.
+					$this->groups = array("admin");
 				}
 				
 			}

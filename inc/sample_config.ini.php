@@ -8,9 +8,7 @@
 	plexowner = "PLEX OWNERS USERNAME";
 	
 	[PLEXPY]
-	plexpy = true; //Enable or disable PlexPy features.
-	plexpytoken = "PLEXPY_API_TOKEN";
-	plexpyserver = "http://localhost:8181/plexpy"; //We will use this to PreAuth PlexPy when user is logging in. No ending slash.
+	plexpy = true; //Enable or disable PlexPy features. This is only if you are using my custom PlexPy fork.
 	
 	[SERVER]
 	domain = "Your domain. This is for the cookie";
