@@ -15,8 +15,8 @@
     <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Your Tech Base</a>
       <ul class="right hide-on-med-and-down">
         <li><a class="dropdown-button" href="#!" data-activates="dropdown">Menu<i class="material-icons right">arrow_drop_down</i></a></li>
-        <li id="client-username"><?php print $user->attributes()['username']?>&nbsp;</li>
-        <li><img src="<?php print $user->attributes()['thumb']?>" alt="" class="circle" id="client-picture"></li>
+        <li id="client-username"><?php print $User->getUsername()?>&nbsp;</li>
+        <li><img src="<?php print $User->getThumb()?>" alt="" class="circle" id="client-picture"></li>
       </ul>
  
       <ul id="nav-mobile" class="side-nav">

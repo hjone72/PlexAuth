@@ -18,19 +18,21 @@
 							<h1>Welcome <?php echo $User->getUsername(); ?></h1>
 						</div>
 						<?php
-							if ($_GET['dev']){
-								if ($User->authURI($_GET['uri'])){
-									print 'Authorized';
-								} else {
-									print 'Unauthorized';
-								}
-								print_r(explode('/',$_GET['uri']));
-								if ($_GET['groups']){
-									$User->printGroups();
-								}
-								if ($_GET['emails']){
-									if ($User->authURI('/emails')){
-										printPlexEmails();
+							if (isset($_GET['dev'])){
+								if ($_GET['dev']){
+									if ($User->authURI($_GET['uri'])){
+										print 'Authorized';
+									} else {
+										print 'Unauthorized';
+									}
+									print_r(explode('/',$_GET['uri']));
+									if ($_GET['groups']){
+										$User->printGroups();
+									}
+									if ($_GET['emails']){
+										if ($User->authURI('/emails')){
+											printPlexEmails();
+										}
 									}
 								}
 							}
