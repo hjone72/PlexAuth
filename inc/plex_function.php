@@ -9,6 +9,7 @@
 			echo '<script language="javascript">';
 			echo 'alert("Username and Password were incorrect.")';
 			echo '</script>';
+			unset($_SESSION['ytbuser']);
 			return false;
 		}
 	}
