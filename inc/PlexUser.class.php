@@ -12,15 +12,21 @@
 		private $groups; //Array of uri's that the user can access.
 		
 		public function __construct($token, $username = null, $password = null){
+			$loginSuccess = false; //Will quickly finish creating the User if they fail to login correctly.
 			if ($username != null && $password != null) {
 				if ($this->getPlexToken($username, $password)){
 					//Authenticated
 					$token = $this->token;
+					$loginSuccess = true;
 				}
+			} else {
+				$loginSuccess = true; //The user is returning and has authed before so we'll trust them for now.
 			}
-			$this->Load($token);
-			$this->token = $token;
-			$this->AuthUser($this->username);
+			if ($loginSuccess){
+				$this->Load($token);
+				$this->token = $token;
+				$this->AuthUser($this->username);
+			}
 			$_SESSION['ytbuser'] = serialize($this);
 		}
 		
