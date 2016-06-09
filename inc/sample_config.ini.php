@@ -12,9 +12,11 @@
 	
 	[SERVER]
 	domain = "Your domain."; //This is used for the cookie.
+	protocol = "https"; //What protocol does your domain use? [https|http]
 	session_path = "/var/lib/php5/sessions/sess_"; //This is your PHP session path folder with session prefix.
 	
 	[REMEMBER_ME]
+	secure = true; //If the EememberMe cookie should be only allowed via SSL. Disable this if you are using HTTP for your domain.
 	remember_cookie = "YTB-SID"; //Name of the cookie that will be used to remember user.
 	expire_time = "604800"; //Time for the cookie to expire (Seconds). 604800 = 1 week.
 	

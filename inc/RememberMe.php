@@ -26,7 +26,7 @@
 	$new_cookie = $rememberMe->getCookie();
 	$new_cookie->setPath('/');
 	$new_cookie->setDomain($GLOBALS['ini_array']['domain']);
-	$new_cookie->setSecure(true);
+	$new_cookie->setSecure($GLOBALS['ini_array']['secure']);
 	$new_cookie->setHttpOnly(false);
 	$rememberMe->setCookie($new_cookie);
 	
@@ -56,7 +56,7 @@
 			header('X-Username: ' . $User->getUsername(), true, 200);
 			if (isset($_SESSION['return_url'])){
 				if ($_SESSION['return_url'] != ""){
-					$url = $_SESSION['return_url'];
+					$url = $GLOBALS['ini_array']['protocol'] . "://" . $_SESSION['return_url'];
 					$_SESSION['return_url'] = "";
 					header("Location: " . $url);
 					die();
