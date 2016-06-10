@@ -84,8 +84,11 @@
 		
 		public function authURI($uri){
 			//Check if we have access to this uri.
-			$uri = substr($uri, 1); //Remove leading / (slash) from uri.
-			$uri = explode('/',$uri)[0];
+			$fc = substr($uri, 0, 1); //Get first character. We will check if this is a slash '/'.
+			if ($fc == '/') {
+				$uri = substr($uri, 1); //Remove leading / (slash) from uri.
+			}
+			$uri = explode('/',$uri)[0]; //If there are any paths in the URL just grab the URI
 			if (in_array("admin", $this->groups)){
 				return true;
 			} elseif (in_array($uri, $this->groups)){
