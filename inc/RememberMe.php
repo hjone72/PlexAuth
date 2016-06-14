@@ -62,7 +62,13 @@
 					die();
 				}
 			}
-			require('main.page.php');
+			if (isset($_GET['page'])){
+				if ($_GET['page'] != ''){
+					require('pages/' . $_GET['page'] . '.page.php');
+				}
+			} else {
+				require('main.page.php');
+			}
 		}else{
 			//User has been loaded but not authed. This is odd.
 			//print_r ($_SESSION);
