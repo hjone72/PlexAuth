@@ -10,4 +10,10 @@ footer.php
 desktop.ini
 README.md
 
+#Ignore all files in pages folder.
+inc/pages/*
+#Except these two:
+!inc/pages/main.page.php
+!inc/pages/login.page.php
+
 Rememberme/*
