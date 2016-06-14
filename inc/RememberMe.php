@@ -56,7 +56,8 @@
 			header('X-Username: ' . $User->getUsername(), true, 200);
 			if (isset($_SESSION['return_url'])){
 				if ($_SESSION['return_url'] != ""){
-					$url = $GLOBALS['ini_array']['protocol'] . "://" . $_SESSION['return_url'];
+					$url = $GLOBALS['ini_array']['protocol'];
+					$url .= '://' . $_SESSION['return_url'];
 					$_SESSION['return_url'] = "";
 					header("Location: " . $url);
 					die();
