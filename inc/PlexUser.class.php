@@ -54,6 +54,7 @@
 			curl_setopt($process, CURLOPT_RETURNTRANSFER, true);
 			$data = curl_exec($process);
 			$curlError = curl_error($process);
+			curl_close($process);
 			$json = json_decode($data, true);
 			if (!array_key_exists("error",$json)){
 				$this->token = $json['user']['authentication_token'];
