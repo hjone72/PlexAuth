@@ -7,7 +7,9 @@
 		//Include all the files needed for PlexAuth
 		$ini_array = parse_ini_file($path."/inc/config.ini.php"); //Config file that has configurations for site.
 		$GLOBALS['ini_array'] = $ini_array;
-		session_start(); //Start PHP session.
+		if (!isset($_SESSION)) {
+			session_start();
+		}
 		require_once('plex_function.php');
 		require_once('PlexUser.class.php');
 		
