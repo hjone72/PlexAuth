@@ -34,7 +34,9 @@
 	//Set any salt you wish to add here.
 	
 	// First, we initialize the session, to see if we are already logged in
-	session_start();
+	if (!isset($_SESSION)) {
+        session_start(); 
+    }
 
 	if(!empty($_SESSION['ytbuser'])) {
 		$User = unserialize($_SESSION['ytbuser']);
