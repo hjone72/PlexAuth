@@ -33,9 +33,6 @@
 		$new_cookie->setHttpOnly(false);
 		$rememberMe->setCookie($new_cookie);
 		
-		// First, we initialize the session, to see if we are already logged in
-		session_start();
-		
 		//Before we continue check if this is an internal request and has a specific session_id
 		if ($_SERVER['REMOTE_ADDR'] == '127.0.0.1'){ //If the request isn't coming from the server then ignore the attempt to change Session_id.
 			if (isset($_GET['session'])){
