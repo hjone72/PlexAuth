@@ -8,6 +8,7 @@
 	if (!isset($_SESSION)) {
         session_start(); 
     }
+	ini_set('display_errors', $GLOBALS['ini_array']['debug'] ? 'On' : 'Off'); //Enables or disables displaying of errors based on config file.
 	session_set_cookie_params(0 , '/', $GLOBALS['ini_array']['domain']);
 	require_once('plex_function.php');
 	require_once('PlexUser.class.php');

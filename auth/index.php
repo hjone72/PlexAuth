@@ -43,7 +43,7 @@
 			}
 		}
 		
-		$debug = true; //Debug.
+		$debug = $GLOBALS['ini_array']['debug']; //Debug.
 		if ($debug) {
 			$logPath = $path."/inc/tokens/auth.log";
 		} else {

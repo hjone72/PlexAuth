@@ -20,5 +20,8 @@
 	remember_cookie = "YTB-SID"; //Name of the cookie that will be used to remember user.
 	expire_time = "604800"; //Time for the cookie to expire (Seconds). 604800 = 1 week.
 	
+	[PLEX_AUTH]
+	debug = false; //Debug on or off.
+	
 	;*/
 ;?>
