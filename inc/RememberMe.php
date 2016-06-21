@@ -98,7 +98,7 @@
 		}else{
 			// If $rememberMe returned false, check if the token was invalid
 			if($rememberMe->loginTokenWasInvalid()) {
-				$content = tpl("cookie_was_stolen");
+				redirect();
 			} else {
 				if(!empty($_POST)) {
 					if (Login($_POST['PlexEmail'], $_POST['PlexPassword'])){
