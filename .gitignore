@@ -3,6 +3,7 @@
 #################
 
 config.ini.php
+config.module.ini.php
 nav.php
 footer.php
 .htaccess
@@ -15,5 +16,11 @@ inc/pages/*
 #Except these two:
 !inc/pages/main.page.php
 !inc/pages/login.page.php
+
+#Ignore all modules.
+inc/modules/*
+
+#Ignore icons
+images/icons/*
 
 Rememberme/*
