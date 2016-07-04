@@ -4,7 +4,8 @@
 		//Plex user class.
 		private $username; //Plex username
 		private $plexID; //PlexID
-		private $email; //Plex email
+		private $email = null; //Primary email
+		private $plexemail; //Plex email address
 		private $thumb; //Plex picture location
 		private $token; //Plex token
 		private $pin; //Plex pin. Don't know what to do with this yet. Maybe useful later.
@@ -81,7 +82,7 @@
 			$this->username = (string)$user_info->attributes()['username'];
 			$this->plexID = (string)$user_info->attributes()['id'];
 			$this->pin = (string)$user_info->attributes()['pin'];
-			$this->email = (string)$user_info->attributes()['email'];
+			$this->plexemail = (string)$user_info->attributes()['email'];
 			$this->thumb = (string)$user_info->attributes()['thumb'];
 		}
 		
@@ -181,9 +182,14 @@
 			$this->auth = $auth; //Set auth status to value of auth
 		}
 		
-		public function getEmail(){
+		public function getEmail($plex = false){
 			//returns email.
-			return $this->email;
+			if ($this->email != null && $plex == false){
+				return $this->email;
+			} else {
+				return $this->plexemail;
+			}
+		}
 		}
 	}
 ?>
