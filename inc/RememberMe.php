@@ -67,6 +67,7 @@
 			}
 			if (isset($_GET['page'])){
 				if ($_GET['page'] != ''){
+					$_GET['page'] = strtolower($_GET['page']);
 					require('pages/' . $_GET['page'] . '.page.php');
 				}
 			} else {
