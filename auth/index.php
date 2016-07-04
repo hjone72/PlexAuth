@@ -1,11 +1,10 @@
 <?php	
-		//$path = __DIR__;
 		$path = dirname(__DIR__);
-		//$path .= '/..'
+		$path .= '/inc';
 		//Adds inc directory to includes. Ensure this actually adds the path to where your files are located. /var/www/PlexAuth/inc
-        set_include_path(get_include_path() . PATH_SEPARATOR . $path . '/inc');
+        set_include_path(get_include_path() . PATH_SEPARATOR . $path . PATH_SEPARATOR . $path . '/modules');
 		//Include all the files needed for PlexAuth
-		$ini_array = parse_ini_file($path."/inc/config.ini.php"); //Config file that has configurations for site.
+		$ini_array = parse_ini_file($path."/config.ini.php"); //Config file that has configurations for site.
 		$GLOBALS['ini_array'] = $ini_array;
 		if (!isset($_SESSION)) {
 			session_start();
@@ -13,10 +12,10 @@
 		require_once('plex_function.php');
 		require_once('PlexUser.class.php');
 		
-		require_once $path.'/inc/rememberme/vendor/autoload.php';
+		require_once $path.'/rememberme/vendor/autoload.php';
 		use Birke\Rememberme;
 		
-		$storagePath = $path."/inc/tokens";
+		$storagePath = $path."/tokens";
 		if(!is_writable($storagePath) || !is_dir($storagePath)) {
 			die("'$storagePath' does not exist or is not writable by the web server.
 					To run the example, please create the directory and give it the
@@ -45,7 +44,7 @@
 		
 		$debug = $GLOBALS['ini_array']['debug']; //Debug.
 		if ($debug) {
-			$logPath = $path."/inc/tokens/auth.log";
+			$logPath = $path."/tokens/auth.log";
 		} else {
 			$logPath = "";
 		}
