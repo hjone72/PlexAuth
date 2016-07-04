@@ -92,6 +92,9 @@
 		}
 		
 		public function authURI($uri){
+			if ($uri == null) {
+				return true;
+			}
 			//Check if we have access to this uri.
 			$fc = substr($uri, 0, 1); //Get first character. We will check if this is a slash '/'.
 			if ($fc == '/') {
