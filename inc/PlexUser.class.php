@@ -117,6 +117,7 @@
 		
 		public function setToken($token){
 			$this->token = $token;
+			$_SESSION['ytbuser'] = serialize($this);
 		}
 		
 		public function getToken(){
@@ -130,6 +131,7 @@
 		public function setAuth($status){
 			//Sets a users auth status.
 			$this->auth = $status;
+			$_SESSION['ytbuser'] = serialize($this);
 			return $this->auth;
 		}
 		
@@ -141,6 +143,7 @@
 		public function setThumb($thumb){
 			//Sets the users thumb location.
 			$this->thumb = $thumb;
+			$_SESSION['ytbuser'] = serialize($this);
 		}
 		
 		public function getThumb(){
