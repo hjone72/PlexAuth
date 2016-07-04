@@ -17,3 +17,4 @@ inc/pages/*
 !inc/pages/login.page.php
 
 Rememberme/*
+inc/modules/config.module.ini.php
