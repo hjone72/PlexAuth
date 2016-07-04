@@ -1,14 +1,14 @@
 <?php
-	//This code comes from: https://github.com/gbirke/rememberme
-	
+	//Lots of this code comes from: https://github.com/gbirke/rememberme
 	require_once __DIR__.'/rememberme/vendor/autoload.php';
 	use Birke\Rememberme;
 	
 	function redirect($destroySession=false) {
 		if($destroySession) {
-			session_regenerate_id(true);
+			pa_session_regenerate(true);
 			session_destroy();
 		}
+		pa_session_regenerate(true);
 		header("Location: index.php");
 		exit;
 	}
@@ -102,7 +102,7 @@
 			} else {
 				if(!empty($_POST)) {
 					if (Login($_POST['PlexEmail'], $_POST['PlexPassword'])){
-						session_regenerate_id();
+						pa_session_regenerate();
 						// If the user wants to be remembered, create Rememberme cookie
 						if(!empty($_POST['rememberme'])) {
 							$User = unserialize($_SESSION['ytbuser']);
