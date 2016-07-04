@@ -11,6 +11,7 @@
 		private $pin; //Plex pin. Don't know what to do with this yet. Maybe useful later.
 		private $auth = false; //If the user has been authenticated or not.
 		private $groups; //Array of uri's that the user can access.
+		private $name; //Name array. Firstname $name[0].
 		
 		public function __construct($token, $username = null, $password = null){
 			$loginSuccess = false; //Will quickly finish creating the User if they fail to login correctly.
@@ -150,6 +151,20 @@
 		public function getUsername(){
 			//returns Username
 			return $this->username;
+		}
+		
+		public function setName($name) {
+			$name[2] = true;
+			$this->name = $name;
+			$_SESSION['ytbuser'] = serialize($this);
+		}
+		
+		public function getName() {
+			if (isset($this->name)){
+				return $this->name;
+			} else {
+				return array($this->username, null, false);
+			}
 		}
 		
 		private function AuthUser($username) {
