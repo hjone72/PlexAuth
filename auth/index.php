@@ -64,7 +64,7 @@
 			writeLog("User exists in Session", $logPath, $debug);
 			writeLog($_SESSION['ytbuser'], $logPath, $debug);
 			$User = unserialize($_SESSION['ytbuser']);
-			if ($_GET['admin']){
+			if (isset($_GET['admin'])){
 				if ($User->authURI($_GET['uri'])){
 					returnAuth(true, $User);
 				} else {
