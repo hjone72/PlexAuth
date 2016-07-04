@@ -76,17 +76,17 @@
 					returnAuth(true, $User);
 					//Handle auth for additional sites.
 					if (isset($_GET['info'])){
-						if ($_GET['info'] == 'plexpy'){
-							//Print data a way that plexpy is expecting.
-							//uid, token, group
-							print $User->getID() . PHP_EOL;
-							print $User->getToken() . PHP_EOL;
-							if ($User->authURI('/' . $_GET['info'])){
-								print 'admin' . PHP_EOL;
-							} else {
-								print 'guest' . PHP_EOL;
-							}
-							print $User->getUsername() . PHP_EOL;
+						switch ($_GET['info']) {
+							case 'plexpy':
+								include_once('plexpySSO.module.php');
+								break;
+							case 'getgrav':
+								include_once('getgrav.module.php');
+								print(json_encode(getGravDetails($User)));
+								break;
+							default:
+								Print 'Unsupported return method';
+								break;
 						}
 					}
 				}else{
