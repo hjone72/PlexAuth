@@ -15,7 +15,7 @@
 				<div class="section">
 					<div class="row">
 						<div class="col s12">
-							<h1>Welcome <?php echo $User->getUsername(); ?></h1>
+							<h1>Welcome <?php echo $User->getName()[0]; ?></h1>
 						</div>
 						<?php
 							if (isset($_GET['dev'])){
