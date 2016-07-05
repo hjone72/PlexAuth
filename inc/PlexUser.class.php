@@ -211,6 +211,5 @@
 				return $this->plexemail;
 			}
 		}
-		}
 	}
 ?>
