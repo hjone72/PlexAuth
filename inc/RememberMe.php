@@ -101,7 +101,7 @@
 			if($rememberMe->loginTokenWasInvalid()) {
 				redirect();
 			} else {
-				if(!empty($_POST)) {
+				if(!empty($_POST) && !isset($_POST['join_load'])) {
 					if (Login($_POST['PlexEmail'], $_POST['PlexPassword'])){
 						pa_session_regenerate();
 						// If the user wants to be remembered, create Rememberme cookie
@@ -119,7 +119,16 @@
 					}
 				} else {
 					//Show login.
-					require('login.page.php');
+					if (isset($_GET['page'])){
+						$_GET['page'] = strtolower($_GET['page']);
+						if ($_GET['page'] == "join"){
+							require('pages/join.page.php');
+						} else {
+							require('login.page.php');
+						}
+					} else {
+						require('login.page.php');
+					}
 				}
 			}
 		}
