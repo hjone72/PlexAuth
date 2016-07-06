@@ -21,8 +21,8 @@
 							<form method="post">
 								<div class="row">
 									<div class="input-field col s12">
-										<input id="email" name="PlexEmail" type="email" class="validate tooltipped" data-position="top" data-delay="50" data-tooltip="Use your Plex credentials">
-										<label for="email">Email</label>
+										<input id="email" name="PlexEmail" type="text" class="validate tooltipped" data-position="top" data-delay="50" data-tooltip="Use your Plex credentials">
+										<label for="email">Username or Email</label>
 									</div>
 								</div>
 								<div class="row">
