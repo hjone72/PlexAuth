@@ -7,7 +7,7 @@
 		<!--  CSS  -->
 		<?php require_once 'inc/css.php'; ?>
 	</head>
-	<body class="grey lighten-4">
+	<body class="plex-black">
 		<main class="valign-wrapper">
 			<div class="container valign">
 				<div class="section">
@@ -38,7 +38,7 @@
 								</div>
 								</div>
 								<div class="row right-align">
-									<button class="btn waves-effect waves-light light-blue" type="submit" name="action">Submit
+									<button class="btn waves-effect waves-light plex-orange" type="submit" name="action">Submit
 										<i class="material-icons right">send</i>
 									</button>
 								</div>

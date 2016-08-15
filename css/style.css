@@ -16,12 +16,29 @@ body {
 	display: flex;
 	min-height: 100vh;
 	flex-direction: column;
-	background-image: url(/images/backgrounds/bgnoise_lg.png);
-	background-repeat: repeat;
 }
 main {
   flex: 1 0 auto;
 }
+
+.brand-logo img {
+  height: 64px;
+  padding: 5px;
+}
+.dropdown-content {
+  top: 64px!important;
+  background-color: #323232;
+}
+.dropdown-content li a {
+  color:#fff;
+}
+.dropdown-content li a:hover {
+  color:#ff8a00;
+}
+.dropdown-content li:hover {
+  background: rgba(0,0,0,0.1);
+}
+
 .text-inset {
   -webkit-background-clip: text;
   -moz-background-clip: text;
@@ -36,13 +53,54 @@ main {
   border-radius: 10px;
 }
 .input-field input:focus, .input-field label:focus {
-  border-color: #03a9f4!important;
+  border-color: #ff8a00!important;
 }
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-transition-delay: 9999s;
+    -webkit-transition: color 9999s ease-out, background-color 9999s ease-out;
+}
+
 .input-field .active {
-  color: #03a9f4!important;
+  color: #ff8a00!important;
 }
 #client-picture {
-  height: 50px;
-  top: 7px;
-  position: relative;
+  height: 64px;
+  float: right;
+  padding: 5px;
+}
+
+.plex-black {
+  background-color: #3f4245!important;
+}
+.plex-orange {
+  background-color: #ff8a00!important;
+}
+
+footer a:hover {
+  color: #ff8a00!important;
+}
+
+.tabs .tab a {
+  color: #212121!important;
+}
+.tabs .indicator {
+  background-color: #ff8a00!important;
+}
+
+
+@media only screen and (max-width : 600px) {
+  .brand-logo img {
+    height: 56px;
+    padding: 5px;
+  }
+  footer #ytb-logo {
+    margin: auto;
+    display: block;
+    margin-bottom: 1em;
+    height: 4em;
+  }
 }

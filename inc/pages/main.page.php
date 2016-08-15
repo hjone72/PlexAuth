@@ -7,7 +7,7 @@
 		<!--  CSS  -->
 		<?php require_once 'inc/css.php'; ?>
 	</head>
-	<body class="grey lighten-4">
+	<body class="grey lighten-5">
 		<!--  Nav  -->
 		<?php require_once 'inc/nav.php'; ?>
 		<main>
