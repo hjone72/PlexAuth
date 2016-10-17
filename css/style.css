@@ -595,3 +595,19 @@ blockquote {
     padding: 0px;
 }
 
+/* ========================================= */
+/* == Muximux changes ====================== */
+/* ========================================= */
+
+iframe {
+    display: none;
+    border: none;
+}
+
+.iselected {
+    display: block;
+}
+
+#disqus_thread iframe {
+    display: block;
+}

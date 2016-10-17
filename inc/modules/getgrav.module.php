@@ -3,9 +3,31 @@
 		//Print data in a way that Grav is expecting.
 		include_once('dynamic_management.module.php');
 		$management_array = dynamicManagement($User);
+
+		foreach ($management_array as $site => &$url) {
+			//Convert the url's set to GetGrav to muximux ones.
+			$url = "domain.com/#" . $site;
+		}
+
 		include_once ('dynamic_menu.module.php');
 		$support_array = dynamicMenu("Help & Support");
 		$feature_array = dynamicMenu("Features");
+
+		foreach ($support_array as $site => &$url) {
+			if ($url[1]){
+				$url = "domain.com/#" . $site;
+			} else {
+				$url = $url[0];
+			}
+		}
+
+		foreach ($feature_array as $site => &$url) {
+                        if ($url[1]){
+                                $url = "domain.com/#" . $site;
+                        } else {
+                                $url = $url[0];
+                        }
+                }
 
 		//Send PlexPy Stats to grav.
 	        include_once('plexpyAPI.module.php');
