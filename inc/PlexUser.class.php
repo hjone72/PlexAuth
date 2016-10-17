@@ -12,6 +12,7 @@
 		private $auth = false; //If the user has been authenticated or not.
 		private $groups; //Array of uri's that the user can access.
 		private $name; //Name array. Firstname $name[0].
+		private $extras = null; //Array of extra things you want to keep. Should be used ("key" => "value")
 		
 		public function __construct($token, $username = null, $password = null){
 			$loginSuccess = false; //Will quickly finish creating the User if they fail to login correctly.
@@ -28,6 +29,7 @@
 				$this->Load($token);
 				$this->token = $token;
 				$this->AuthUser($this->username);
+				$this->LoadExtensions();
 			}
 			$_SESSION['ytbuser'] = serialize($this);
 		}
@@ -201,6 +203,19 @@
 				
 			}
 			$this->auth = $auth; //Set auth status to value of auth
+		}
+		
+		private function LoadExtensions(){
+            include_once('PlexUser_ext.php');
+		}
+		
+		public function getExtra($extra){
+			if ($this->extras != null){
+				if (isset($this->extras[$extra])){
+					return $this->extras[$extra];
+				}
+			}
+			return false;
 		}
 		
 		public function getEmail($plex = false){
