@@ -1,18 +1,21 @@
 <?php
 	include_once('dynamic_management.module.php');
+        include_once('dynamic_menu.module.php');
 	$management_items = dynamicManagement($User);
+
+        $menu_items_HaS = dynamicMenu("Help & Support");
+        $menu_items_F = dynamicMenu("Features");
 ?>
-<footer class="page-footer light-blue">
+<footer class="page-footer plex-black">
 <div class="container">
-    <div class="row">
-		<div class="col l6 s12">
-		  <h5 class="white-text">Your Tech Base</h5>
-		  <p class="grey-text text-lighten-4">We are a team of cool kids bringing you content for your enjoyment.</p>
+	<div class="row">
+		<div class="col l3 m3 s12">
+			<img id="ytb-logo" class="responsive-img" src="images/icons/YTB-logo.svg" width="250" alt="Your Tech Base Logo" title="Your Tech Base Logo">
 		</div>
 		<div class="col l3 m3 s4">
 			<h5 class="white-text">News</h5>
 			<ul>
-				<li><a class="white-text" href="https://getgrav.org/">Blog</a></li>
+				<li><a class="white-text" href="https://getgrav">Blog</a></li>
 			</ul>
 		<?php if (count($management_items) == 0) { ?>
 		</div>
@@ -20,17 +23,17 @@
 		<?php } ?>
 			<h5 class="white-text">Help & Support</h5>
 			<ul>
-				<li><a class="white-text" href="https://getgrav.org/">FAQ</a></li>
-				<li><a class="white-text" href="https://github.com/hjone72/Bumpy-Booby">Helpdesk</a></li>
+				<?php
+				printMenu(null, null, $menu_items_HaS, false, "white-text");
+				?>
 			</ul>
 		</div>
 		<div class="col l3 m3 s4">
 			<h5 class="white-text">Features</h5>
 			<ul>
-				<li><a class="white-text" href="https://plex.tv">Plex</a></li>
-				<li><a class="white-text" href="https://github.com/tidusjar/PlexRequests.Net">Requests</a></li>
-				<li><a class="white-text" href="http://vaemendis.net/ubooquity/">Comics</a></li>
-				<li><a class="white-text" href="/?page=invite">Invite</a></li>
+                                <?php
+                                printMenu(null, null, $menu_items_F, false, "white-text");
+                                ?>
 			</ul>
 		</div>
 		<div class="col l3 m3 s4">
@@ -45,11 +48,33 @@
 				}
 			?>
 		</div>
-    </div>
+	</div>
 </div>
 <div class="footer-copyright">
-  <div class="container">
-  Made by YTB!
-  </div>
+<?php
+	include_once('plexpyAPI.module.php');
+        $stats = plexpyAPI('get_libraries', 'library_stats')['response']['data'];
+	$stat_array = array();
+        foreach ($stats as $section) {
+		$stat_array[$section['section_name']] = $section['count'];
+	        if ($section['section_type'] == 'show') {
+			$stat_array["Episodes"] = $section['child_count'];
+	        }
+        }
+?>
+
+<div class="container">
+    <div class="row">
+        <div class="col l3">
+            Made by YTB!
+        </div>
+        <div class="col l9 right-align">
+            <strong>HD Movies: </strong><?php print $stat_array['HD Movies']; ?> <span class="plex-orange-text">&#124;</span>
+            <strong>SD Movies: </strong><?php print $stat_array['SD Movies']; ?> <span class="plex-orange-text">&#124;</span>
+            <strong>TV Shows: </strong><?php print $stat_array['TV Shows']; ?> <span class="plex-orange-text">&#124;</span>
+            <strong>Episodes: </strong><?php print $stat_array['Episodes']; ?>
+        </div>
+    </div>
+</div>
 </div>
 </footer>

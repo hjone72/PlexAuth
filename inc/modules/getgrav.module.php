@@ -3,6 +3,44 @@
 		//Print data in a way that Grav is expecting.
 		include_once('dynamic_management.module.php');
 		$management_array = dynamicManagement($User);
+
+		foreach ($management_array as $site => &$url) {
+			//Convert the url's set to GetGrav to muximux ones.
+			$url = "domain.com/#" . $site;
+		}
+
+		include_once ('dynamic_menu.module.php');
+		$support_array = dynamicMenu("Help & Support");
+		$feature_array = dynamicMenu("Features");
+
+		foreach ($support_array as $site => &$url) {
+			if ($url[1]){
+				$url = "domain.com/#" . $site;
+			} else {
+				$url = $url[0];
+			}
+		}
+
+		foreach ($feature_array as $site => &$url) {
+                        if ($url[1]){
+                                $url = "domain.com/#" . $site;
+                        } else {
+                                $url = $url[0];
+                        }
+                }
+
+		//Send PlexPy Stats to grav.
+	        include_once('plexpyAPI.module.php');
+	        $stats = plexpyAPI('get_libraries', 'library_stats')['response']['data'];
+	        $stat_array = array();
+	        foreach ($stats as $section) {
+	                $stat_array[$section['section_name']] = $section['count'];
+	                if ($section['section_type'] == 'show') {
+	                        $stat_array["Episodes"] = $section['child_count'];
+	                }
+	        }
+
+
 		$gravPerms = array (
 								"admin" => array (
 													"login" => false,
@@ -30,6 +68,9 @@
 						"thumbURL" => $User->getThumb(),
 						"email" => $User->getEmail(),
 						"management" => $management_array,
+						"features" => $feature_array,
+						"support" => $support_array,
+						"plexstats" => $stat_array,
 						"gravPerms" => $gravPerms
 					);
 		return $data;

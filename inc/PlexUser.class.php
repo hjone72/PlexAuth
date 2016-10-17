@@ -12,6 +12,7 @@
 		private $auth = false; //If the user has been authenticated or not.
 		private $groups; //Array of uri's that the user can access.
 		private $name; //Name array. Firstname $name[0].
+		private $extras = null; //Array of extra things you want to keep. Should be used ("key" => "value")
 		
 		public function __construct($token, $username = null, $password = null){
 			$loginSuccess = false; //Will quickly finish creating the User if they fail to login correctly.
@@ -28,6 +29,7 @@
 				$this->Load($token);
 				$this->token = $token;
 				$this->AuthUser($this->username);
+				$this->LoadExtensions();
 			}
 			$_SESSION['ytbuser'] = serialize($this);
 		}
@@ -84,7 +86,7 @@
 			$this->plexID = (string)$user_info->attributes()['id'];
 			$this->pin = (string)$user_info->attributes()['pin'];
 			$this->plexemail = (string)$user_info->attributes()['email'];
-			$this->thumb = (string)$user_info->attributes()['thumb'];
+			$this->thumb = (string)$user_info->attributes()['thumb']; //This could be cached. But i can't be bothered doing this right now.
 		}
 		
 		public function printGroups(){
@@ -185,8 +187,13 @@
 					
 					//Right here we are going to get an opportunity to grab the allowed URI's.
 					$string = urldecode($user['filterPhotos']); //We are going to use the photo's filer. This could also be done with any Plex restriction option. URLdecode this too.
+					//$string2 = urldecode($user['filterMusic']); //We are going to use the music filer. Only because the photo filter disapperd and no plex admins will answer my questions as to why! This could also be done with any Plex restriction option. URLdecode this too.
 					$string = substr($string, 6); //Remove the label= from beginning of string.
+					//$string2 = substr($string2, 6); //Remove the label= from beginning of string.
 					$permissions = explode(',',$string); //Explode the string into an array.
+					//$permissions2 = explode(',',$string2); //Explode the string into an array.
+					
+					//$permissions = array_merge($permissions, $permissions2);
 					$this->groups = $permissions; //Set permissions.
 					
 					break; //break the loop.
@@ -201,6 +208,19 @@
 				
 			}
 			$this->auth = $auth; //Set auth status to value of auth
+		}
+		
+		private function LoadExtensions(){
+            include_once('PlexUser_ext.php');
+		}
+		
+		public function getExtra($extra){
+			if ($this->extras != null){
+				if (isset($this->extras[$extra])){
+					return $this->extras[$extra];
+				}
+			}
+			return false;
 		}
 		
 		public function getEmail($plex = false){

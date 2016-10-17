@@ -3,22 +3,23 @@
 	<head>
 		<!--  Meta  -->
 		<?php require_once 'inc/meta.php'; ?>
-		<title>Your Tech Base</title>
+		<title>TEMPLATE - Your Tech Base</title>
 		<!--  CSS  -->
 		<?php require_once 'inc/css.php'; ?>
 	</head>
 	<body class="grey lighten-5">
 		<!--  Nav  -->
 		<?php require_once 'inc/nav.php'; ?>
-		<main>
-			<div class="container">
+		<main class="valign-wrapper">
+			<div class="container valign">
 				<div class="section">
 					<div class="row">
 						<div class="col s12">
-							<h1>Welcome <?php echo $User->getName()[0]; ?></h1>
+
+							<h1>Join YTB</h1>
+							<p>CONTENT GOES HERE</p>
+
 						</div>
-						<?php
-						?>
 					</div>
 				</div>
 			</div>
