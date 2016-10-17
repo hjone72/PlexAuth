@@ -60,6 +60,22 @@
 			}
 		}
 		
+		if(empty($_SESSION['ytbuser'])) {
+                        //Give the user a chance to login with Basic auth.
+                        if (!isset($_SERVER['PHP_AUTH_USER'])) {
+                                header('WWW-Authenticate: Basic realm="My Realm"');
+                                header('HTTP/1.0 401 Unauthorized');
+                        } else {
+                                if (Login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])){
+                                        returnAuth(true);
+                                } else {
+                                        writeLog("No login result returned.", $logPath, $debug);
+                                        returnAuth(false);
+                                        print 'LoginResult';
+                                }
+                        }
+		}
+
 		if(!empty($_SESSION['ytbuser'])) {
 			writeLog("User exists in Session", $logPath, $debug);
 			writeLog($_SESSION['ytbuser'], $logPath, $debug);
@@ -103,25 +119,20 @@
 			writeLog("Cookie will not be used to login.", $logPath, $debug);
 			$loginresult = false;
 			//writeLog("Cookie status: " . $loginresult, $logPath, $debug);
-			if ($loginresult) {
-				if(CookieLogin($loginresult)){
-					writeLog("Logged in user: " . $_SESSION['ytbuser'], $logPath, $debug);
-					// There is a chance that an attacker has stolen the login token, so we store
-					// the fact that the user was logged in via RememberMe (instead of login form)
-					$_SESSION['remembered_by_cookie'] = true;
-					$User = unserialize($_SESSION['ytbuser']);
-					writeLog("Return true auth for: " . $User->getUsername(), $logPath, $debug);
-					returnAuth(true, $User);
-				} else {
-					writeLog("User failed login. CookieLogin.", $logPath, $debug);
-					returnAuth(false);
-					print 'CookieLogin';
-				}
+
+			//Give the user a chance to login with Basic auth.
+			if (!isset($_SERVER['PHP_AUTH_USER'])) {
+			        header('WWW-Authenticate: Basic realm="My Realm"');
+			        header('HTTP/1.0 401 Unauthorized');
 			} else {
-				writeLog("No login result returned.", $logPath, $debug);
-				returnAuth(false);
-				print 'LoginResult';
-			}
+		                if (Login($_SERVER['PHP_AUTH_USER'], $_SERVER['PHP_AUTH_PW'])){
+	        		        returnAuth(true);
+		                } else {
+	                                writeLog("No login result returned.", $logPath, $debug);
+        	                        returnAuth(false);
+                	                print 'LoginResult';
+				}
+		        }
 		}
 		
 		function returnAuth($value, $User = 'Unknown', $admin = false){
