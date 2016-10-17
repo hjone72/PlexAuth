@@ -15,6 +15,11 @@ inc/pages/*
 #Except these two:
 !inc/pages/main.page.php
 !inc/pages/login.page.php
+!inc/pages/signout.page.php
+!inc/pages/template.page.php
+
 
 Rememberme/*
 inc/modules/config.module.ini.php
+.htaccess
+inc/PlexUser_ext.php
