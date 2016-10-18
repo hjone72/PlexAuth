@@ -5,5 +5,5 @@
       //Load users name from local DB.
       include_once('name.module.php');
       $this->setName(getName($this));
-      
+  */  
 ?>
