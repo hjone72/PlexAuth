@@ -103,6 +103,9 @@
 							case 'comicstreamer':
 								include_once('ComicStreamer.module.php');
 								break;
+							case 'booksonic':
+								include_once('booksonic.module.php');
+								break;
 							default:
 								Print 'Unsupported return method';
 								break;
