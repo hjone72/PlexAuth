@@ -29,7 +29,7 @@
 									}
 									session_destroy();
 									session_regenerate_id();
-									header("Location: https://secure.domain.com");
+									header("Location: " . $GLOBALS['ini_array']['signout_return']);
 								?>
 							</div>
 						</div>

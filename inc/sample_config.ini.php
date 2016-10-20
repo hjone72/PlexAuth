@@ -19,6 +19,7 @@
 	expire_time = "604800"; //Time for the cookie to expire (Seconds). 604800 = 1 week.
 	
 	[PLEX_AUTH]
+	signout_return = https://secure.domain.com; //Location you will be returned to after you sign out.
 	debug = false; //Debug on or off.
 	
 	;*/
