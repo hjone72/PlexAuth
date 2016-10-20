@@ -100,9 +100,9 @@
 								include_once('getgrav.module.php');
 								print(json_encode(getGravDetails($User)));
 								break;
-			                                case 'comicstreamer':
-			                                        include_once('ComicStreamer.module.php');
-                                				break;
+							case 'comicstreamer':
+								include_once('ComicStreamer.module.php');
+								break;
 							default:
 								Print 'Unsupported return method';
 								break;
