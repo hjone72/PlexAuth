@@ -26,7 +26,7 @@
 ?>
 
 <ul id="dropdown4" class="dropdown-content">
-	<li><a href="/?page=signout">Sign Out</a></li>
+	<li><a href="./?page=signout">Sign Out</a></li>
 </ul>
 
 	<nav class="plex-black" role="navigation">
