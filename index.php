@@ -1,5 +1,10 @@
 <?php
 	$path = __DIR__;
+	if (!isset($_SESSION)) {
+		//Start the session if it doesn't exist.
+		//We will regenerate it after login.
+		session_start();
+	}
 	//Grab the GET parameters and add to session.
 	if (isset($_GET['return'])){
 		if ($_GET['return'] != "") {
