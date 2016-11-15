@@ -98,9 +98,7 @@ jQuery(document).ready(function($){
             var menuItem = $(document).find('a:containsInsensitive("'+bookmarkHash+'")');
 		console.log(bookmarkHash);
             menuItem.trigger("click");
-        }else{
-		window.location.href = 'https://blog.yourtechbase.com';
-	}
+        }
 
 // Call resizeIframe when document is ready
 resizeIframe();
