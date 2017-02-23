@@ -183,19 +183,39 @@
 				//Loop through all uers and convert them to lowercase and add them to array.
 				//if (strcmp($username, strtolower($user['username']))){
 				if (strcmp(strtolower($username), strtolower($user['username'])) == 0) {
-					$auth = true; //set auth to true.
+					foreach ($user->Server as $server) {
+						if ($server['owned'] == 0) {
+							continue;
+						} elseif ($server['owned'] == 1) {
+							//Get the server name from our config file.
+							$path = __DIR__;
+							$ini_array = parse_ini_file($path."/config.ini.php"); //Config file that has configurations for site.
+							if ($ini_array['checkServerName']) {
+								if ($ini_array['serverName'] == $server['name']) {
+									// Our server is shared with this user. Let them through.
+									$auth = true;
+								} else {
+									continue;
+								}
+							} else {
+								// There is a server that we own shared with this user. Let them through.
+								$auth = true;
+							}
+						}
+					}
 					
-					//Right here we are going to get an opportunity to grab the allowed URI's.
-					$string = urldecode($user['filterPhotos']); //We are going to use the photo's filer. This could also be done with any Plex restriction option. URLdecode this too.
-					//$string2 = urldecode($user['filterMusic']); //We are going to use the music filer. Only because the photo filter disapperd and no plex admins will answer my questions as to why! This could also be done with any Plex restriction option. URLdecode this too.
-					$string = substr($string, 6); //Remove the label= from beginning of string.
-					//$string2 = substr($string2, 6); //Remove the label= from beginning of string.
-					$permissions = explode(',',$string); //Explode the string into an array.
-					//$permissions2 = explode(',',$string2); //Explode the string into an array.
-					
-					//$permissions = array_merge($permissions, $permissions2);
-					$this->groups = $permissions; //Set permissions.
-					
+					if ($auth) {
+						//Right here we are going to get an opportunity to grab the allowed URI's.
+						$string = urldecode($user['filterPhotos']); //We are going to use the photo's filer. This could also be done with any Plex restriction option. URLdecode this too.
+						// $string2 = urldecode($user['filterMusic']); //We are going to use the photo's filer. This could also be done with any Plex restriction option. URLdecode this too.
+						$string = substr($string, 6); //Remove the label= from beginning of string.
+						// $string2 = substr($string2, 6); //Remove the label= from beginning of string.
+						$permissions = explode(',',$string); //Explode the string into an array.
+						// $permissions2 = explode(',',$string2); //Explode the string into an array.
+
+						// $permissions = array_merge($permissions, $permissions2);
+						$this->groups = $permissions; //Set permissions.
+					}
 					break; //break the loop.
 				}
 				

@@ -6,6 +6,7 @@
 	[PLEX_SERVER]
 	token = "YOUR PLEX TOKEN"; //Follow this guide to get your token. https://support.plex.tv/hc/en-us/articles/204059436-Finding-your-account-token-X-Plex-Token
 	plexowner = "PLEX OWNERS USERNAME"; //Your Plex username. Not your email.
+	serverName = "PlexServerName"; // The name of your server. This is required to isolate which server a user has to be shared with for auth to be successful.
 	
 	[SERVER]
 	domain = "Your domain."; //This is used for the cookie.
@@ -20,6 +21,7 @@
 	
 	[PLEX_AUTH]
 	signout_return = https://secure.domain.com; //Location you will be returned to after you sign out.
+	checkServerName = true; // Check for a specific server when performing auth. Enabled or Disabled.
 	debug = false; //Debug on or off.
 	
 	;*/
