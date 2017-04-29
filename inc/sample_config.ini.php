@@ -20,9 +20,10 @@
 	expire_time = "604800"; //Time for the cookie to expire (Seconds). 604800 = 1 week.
 	
 	[PLEX_AUTH]
+    permission = "filterPhotos,filterMusic,JSON"; // Comma separated string. This controls how your users permissions are collected. Currently supported options are: "filterPhotos,filterMusic,JSON"
+    JSON = "/PlexAuth/inc/permissions.json"; // It is recommended that you ensure this file is inaccessible from a browser. Full path to location eg /home/user/permissions.json use http://www.jsoneditoronline.org/ to ensure JSON format is correct.
 	signout_return = https://secure.domain.com; //Location you will be returned to after you sign out.
 	checkServerName = true; // Check for a specific server when performing auth. Enabled or Disabled.
 	debug = false; //Debug on or off.
-	
 	;*/
 ;?>

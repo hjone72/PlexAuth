@@ -205,18 +205,40 @@
 					}
 					
 					if ($auth) {
-						//Right here we are going to get an opportunity to grab the allowed URI's.
-						$string = urldecode($user['filterPhotos']); //We are going to use the photo's filer. This could also be done with any Plex restriction option. URLdecode this too.
-						// $string2 = urldecode($user['filterMusic']); //We are going to use the photo's filer. This could also be done with any Plex restriction option. URLdecode this too.
-						$string = substr($string, 6); //Remove the label= from beginning of string.
-						// $string2 = substr($string2, 6); //Remove the label= from beginning of string.
-						$permissions = explode(',',$string); //Explode the string into an array.
-						// $permissions2 = explode(',',$string2); //Explode the string into an array.
+                        $permissions = Array(); // Empty array for permissions.
+                        $permCheck = explode(',',$ini_array['permission']);
+                        foreach ($permCheck as $permType) {
+                            switch ($permType) {
+                                case "JSON":
+                                    // Use JSON file to check permissions.
+                                    $RAWPerm = file_get_contents($ini_array["JSON"]); // Ensure that this file cannot be accessed from a browser.
+                                    $JSONPerm = json_decode($RAWPerm, true);
+                                    if (isset($JSONPerm[$this->plexID])){
+                                        if (isset($JSONPerm[$this->plexID]["permissions"])) {
+                                            // We have permissions set for this user.
+                                            $perms = $JSONPerm[$this->plexID]["permissions"];
+                                            $permissions = array_merge($permissions, $perms);
+                                        }
+                                    }
+                                    break;
+                                case "filterMusic":
+                                    // Use Plex music filter to check permissions.
+                                    // We will actually handle this the same as photos.
+                                case "filterPhotos":
+                                    // Use Plex photo filter to check permissions.
+                                    $string = urldecode($user[$permType]); // This could also be done with any Plex restriction option. URLdecode this too.
+                                    $string = substr($string, 6); // Remove the label= from beginning of string.
+                                    $perms = explode(',',$string); // Explode the string into an array.
+                                    $permissions = array_merge($permissions, $perms); // Merge the two arrays.
+                                    break;
+                                default:
+                                    // You haven't selected a supported permision check.
+                            }
+                        }
+                        $this->groups = $permissions; //We've finished getting the permissions. Assign them to the user.
+                    }
+                    break; //break the loop.
 
-						// $permissions = array_merge($permissions, $permissions2);
-						$this->groups = $permissions; //Set permissions.
-					}
-					break; //break the loop.
 				}
 				
 				if ($username == $GLOBALS['ini_array']['plexowner']){

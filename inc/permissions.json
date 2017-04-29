@@ -1,0 +1,14 @@
+{
+  "112345": {
+    "permissions": [
+      "admin"
+    ]
+  },
+  "203345": {
+    "permissions": [
+      "sickrage",
+      "couchpotato",
+      "sonarr"
+    ]
+  }
+}
