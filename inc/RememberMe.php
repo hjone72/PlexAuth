@@ -9,7 +9,16 @@
 			session_destroy();
 		}
 		pa_session_regenerate(true);
-		header("Location: index.php");
+        if ($_SESSION['return_url'] != ""){
+			$url = $GLOBALS['ini_array']['protocol'];
+            $url .= '://' . $_SESSION['return_url'];
+            $_SESSION['return_url'] = "";
+			header("Location: " . $url);
+			die();
+		} else {
+			header("Location: index.php");
+			die();
+		}
 		exit;
 	}
 	
