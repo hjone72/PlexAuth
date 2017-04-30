@@ -10,6 +10,7 @@
 			"NZBget" => array ("nzbget", "http://nzbget.net/"),
 			"MyLar" => array ("mylar", "https://github.com/evilhero/mylar"),
 			"NZBHydra" => array ("nzbhydra", "https://github.com/theotherp/nzbhydra"),
+            "Permissions" => array ("admin", "https://secure.domain.com/?page=permissions"),
 			"Blog Admin" => array ("gravPages", "https://getgrav.org/")
 		);
 		$return_items = array();
