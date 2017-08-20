@@ -106,6 +106,9 @@
 							case 'booksonic':
 								include_once('booksonic.module.php');
 								break;
+							case 'bumpybooby':
+								include_once('bumpybooby.module.php');
+								break;
 							default:
 								Print 'Unsupported return method';
 								break;
