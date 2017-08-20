@@ -6,9 +6,8 @@
 	$ini_array = parse_ini_file($path."/config.ini.php"); //Config file that has configurations for site.
 	$GLOBALS['ini_array'] = $ini_array;
 	if (!isset($_SESSION)) {
-        session_start();
 		pa_session_regenerate();
-    }
+	}
 	
 	function pa_session_regenerate($bool = false){
 		ini_set('session.hash_function', 'whirlpool');
@@ -17,6 +16,9 @@
 		ini_set('session.hash_bits_per_character', 5);
 		session_set_cookie_params(0 , '/', $GLOBALS['ini_array']['domain']);
 		session_name($GLOBALS['ini_array']['session_name']);
+		if (!isset($_SESSION)) {
+			session_start(); // Finally start the session. We've loaded all the details now.
+		}
 		session_regenerate_id($bool);
 	}
 	
