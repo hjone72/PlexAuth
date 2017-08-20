@@ -112,7 +112,7 @@
 			} else {
 				if(!empty($_POST) && !isset($_POST['formname'])) {
 					if (Login($_POST['PlexEmail'], $_POST['PlexPassword'])){
-						pa_session_regenerate();
+						pa_session_regenerate(true);
 						// If the user wants to be remembered, create Rememberme cookie
 						if(!empty($_POST['rememberme'])) {
 							$User = unserialize($_SESSION['ytbuser']);
