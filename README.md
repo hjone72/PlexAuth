@@ -3,6 +3,8 @@ PHP based Plex authenticaion.
 
 [![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=HPGZKEXQBULFY)
 
+Riemers has done a fantastic job of getting a Docker up and running using PlexAuth. Check it out here: https://github.com/riemers/usenet-docker-plexauth
+
 I'm using Nginx to reverse proxy a heap of different services that all tie into Plex.
 I wanted to be able to have all the people I share my plex with to be able to access these things but didn't really want to share the master passwords for each service.
 
