@@ -175,82 +175,97 @@
 			}
 		}
 		
-		private function AuthUser($username) {
-			//Load plex friends into an array.
-			$sxml = simplexml_load_file("https://plex.tv/api/users?X-Plex-Token=" . $GLOBALS['ini_array']['token']);
-			$auth = false; //Auth is false unless changed.
-			foreach (($sxml->User) as $user){
+		function AuthUser($username)
+			{
+			    //Load plex friends into an array.
+			    $sxml = simplexml_load_file("https://plex.tv/api/users?X-Plex-Token=" . $GLOBALS['ini_array']['token']);
+			    $auth = false; //Auth is false unless changed.
+			    foreach (($sxml->User) as $user)
+			    {
 				//Loop through all uers and convert them to lowercase and add them to array.
 				//if (strcmp($username, strtolower($user['username']))){
-				if (strcmp(strtolower($username), strtolower($user['username'])) == 0) {
-					foreach ($user->Server as $server) {
-						if ($server['owned'] == 0) {
-							continue;
-						} elseif ($server['owned'] == 1) {
-							//Get the server name from our config file.
-							$path = __DIR__;
-							$ini_array = parse_ini_file($path."/config.ini.php"); //Config file that has configurations for site.
-							if ($ini_array['checkServerName']) {
-								if ($ini_array['serverName'] == $server['name']) {
-									// Our server is shared with this user. Let them through.
-									$auth = true;
-								} else {
-									continue;
-								}
-							} else {
-								// There is a server that we own shared with this user. Let them through.
-								$auth = true;
-							}
+				if (strcmp(strtolower($username), strtolower($user['username'])) == 0)
+				{
+				    foreach ($user->Server as $server)
+				    {
+					if ($server['owned'] == 0)
+					{
+					    continue;
+					} elseif ($server['owned'] == 1)
+					{
+					    //Get the server name from our config file.
+					    $path = __DIR__;
+					    $ini_array = parse_ini_file($path . "/config.ini.php"); //Config file that has configurations for site.
+					    if ($ini_array['checkServerName'])
+					    {
+						if ($ini_array['serverName'] == $server['name'])
+						{
+						    // Our server is shared with this user. Let them through.
+						    $auth = true;
+						} else
+						{
+						    continue;
 						}
+					    } else
+					    {
+						// There is a server that we own shared with this user. Let them through.
+						$auth = true;
+					    }
 					}
-					
-					if ($auth) {
-                        $permissions = Array(); // Empty array for permissions.
-                        $permCheck = explode(',',$ini_array['permission']);
-                        foreach ($permCheck as $permType) {
-                            switch ($permType) {
-                                case "JSON":
-                                    // Use JSON file to check permissions.
-                                    $RAWPerm = file_get_contents($ini_array["JSON"]); // Ensure that this file cannot be accessed from a browser.
-                                    $JSONPerm = json_decode($RAWPerm, true);
-                                    if (isset($JSONPerm[$this->plexID])){
-                                        if (isset($JSONPerm[$this->plexID]["permissions"])) {
-                                            // We have permissions set for this user.
-                                            $perms = $JSONPerm[$this->plexID]["permissions"];
-                                            $permissions = array_merge($permissions, $perms);
-                                        }
-                                    }
-                                    break;
-                                case "filterMusic":
-                                    // Use Plex music filter to check permissions.
-                                    // We will actually handle this the same as photos.
-                                case "filterPhotos":
-                                    // Use Plex photo filter to check permissions.
-                                    $string = urldecode($user[$permType]); // This could also be done with any Plex restriction option. URLdecode this too.
-                                    $string = substr($string, 6); // Remove the label= from beginning of string.
-                                    $perms = explode(',',$string); // Explode the string into an array.
-                                    $permissions = array_merge($permissions, $perms); // Merge the two arrays.
-                                    break;
-                                default:
-                                    // You haven't selected a supported permision check.
-                            }
-                        }
-                        $this->groups = $permissions; //We've finished getting the permissions. Assign them to the user.
-                    }
-                    break; //break the loop.
+				    }
 
+				    if ($auth)
+				    {
+					$permissions = Array(); // Empty array for permissions.
+					$permCheck = explode(',', $ini_array['permission']);
+					foreach ($permCheck as $permType)
+					{
+					    switch ($permType)
+					    {
+						case "JSON":
+						    // Use JSON file to check permissions.
+						    $RAWPerm = file_get_contents($ini_array["JSON"]); // Ensure that this file cannot be accessed from a browser.
+						    $JSONPerm = json_decode($RAWPerm, true);
+						    if (isset($JSONPerm[$this->plexID]))
+						    {
+							if (isset($JSONPerm[$this->plexID]["permissions"]))
+							{
+							    // We have permissions set for this user.
+							    $perms = $JSONPerm[$this->plexID]["permissions"];
+							    $permissions = array_merge($permissions, $perms);
+							}
+						    }
+						    break;
+						case "filterMusic":
+						    // Use Plex music filter to check permissions.
+						    // We will actually handle this the same as photos.
+						case "filterPhotos":
+						    // Use Plex photo filter to check permissions.
+						    $string = urldecode($user[$permType]); // This could also be done with any Plex restriction option. URLdecode this too.
+						    $string = substr($string, 6); // Remove the label= from beginning of string.
+						    $perms = explode(',', $string); // Explode the string into an array.
+						    $permissions = array_merge($permissions, $perms); // Merge the two arrays.
+						    break;
+						default:
+						    // You haven't selected a supported permision check.
+					    }
+					}
+					$this->groups = $permissions; //We've finished getting the permissions. Assign them to the user.
+				    }
+				    break; //break the loop.
 				}
-				
-				if ($username == $GLOBALS['ini_array']['plexowner']){
-					//This is an override for the Plex server owner. Because the Plex server isn't technically shared with the owner.
-					$auth = true;
-					//Add the admin group to this user.
-					$this->groups = array("admin");
-				}
-				
+			    }
+
+			    if ($username == $GLOBALS['ini_array']['plexowner'])
+			    {
+				//This is an override for the Plex server owner. Because the Plex server isn't technically shared with the owner.
+				$auth = true;
+				//Add the admin group to this user.
+				$this->groups = array("admin");
+			    }
+
+			    $this->auth = $auth; //Set auth status to value of auth
 			}
-			$this->auth = $auth; //Set auth status to value of auth
-		}
 		
 		private function LoadExtensions(){
             include_once('PlexUser_ext.php');
